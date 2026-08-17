@@ -2,6 +2,7 @@
 
 > Turn messy meetings into clear, actionable outcomes — automatically.
 
+> **Authored by Shashwat Tripathi, IIT Bombay**
 ---
 
 ## Table of Contents

@@ -1,0 +1,12 @@
+{
+  "scenario": "ipfs_pin_fails",
+  "description": "POST /api/nft/pin returns 500 first, then 200 on retry. UI must show retry CTA.",
+  "attempt_1": {
+    "status": 500,
+    "body": {"error": "pin_service_unavailable", "detail": "IPFS pinning service temporarily unreachable. Retry in 5 seconds."}
+  },
+  "attempt_2": {
+    "status": 200,
+    "body": {"cid": "bafybei_token42_metadata", "pinned": true, "size_bytes": 1234}
+  }
+}

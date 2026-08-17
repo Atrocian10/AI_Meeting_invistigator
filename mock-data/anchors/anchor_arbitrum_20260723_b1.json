@@ -1,0 +1,13 @@
+{
+  "anchor_id": "root_arbitrum_20260723_b1",
+  "root_hash": "0xroot_arb_abcdef0987654321abcdef0987654321abcdef0987654321abcdef09",
+  "batch": ["0xleaf_sum006"],
+  "tx_hash": null,
+  "network": "arbitrum",
+  "pinned_cid": "bafybeibatchcid_arbitrum_001",
+  "submitter": "0xMMrelayer00000000000000000000000000000000",
+  "status": "pending",
+  "confirmations": 0,
+  "gas_used": null,
+  "created_at": "2026-07-23T09:30:00Z"
+}

@@ -1,0 +1,12 @@
+{
+  "scenario": "proof_mismatch",
+  "description": "Summary was tampered. Verification returns false. Backend marks summary_status as suspicious.",
+  "original_summary_hash": "0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890",
+  "tampered_summary_hash": "0xTAMPERED_ffff567890abcdef1234567890abcdef1234567890abcdef1234567890",
+  "verify_response": {
+    "verified": false,
+    "error": "leaf_hash_mismatch",
+    "summary_status": "suspicious",
+    "requires_human_review": true
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "events": [
+    {"id":"evt_001","time":"2026-07-21T16:00:05Z","agent":"TranscriptionAgent","type":"transcript_ready","status":"success"},
+    {"id":"evt_002","time":"2026-07-21T16:01:30Z","agent":"SummarizationAgent","type":"summary_ready","status":"success"},
+    {"id":"evt_003","time":"2026-07-21T16:02:00Z","agent":"ActionExtractionAgent","type":"action_items_created","status":"success"},
+    {"id":"evt_005","time":"2026-07-21T16:05:30Z","agent":"OrchestrationAgent","type":"anchor_submitted","status":"success"},
+    {"id":"evt_006","time":"2026-07-21T16:10:00Z","agent":"OrchestrationAgent","type":"anchor_confirmed","status":"success"},
+    {"id":"evt_007","time":"2026-07-21T16:12:00Z","agent":"NFTAgent","type":"nft_minted","status":"success"},
+    {"id":"evt_013","time":"2026-07-23T09:35:00Z","agent":"OrchestrationAgent","type":"anchor_failed","status":"error"},
+    {"id":"evt_015","time":"2026-07-25T12:00:00Z","agent":"OrchestrationAgent","type":"escalation","status":"warning"}
+  ],
+  "total": 8,
+  "since": "2026-07-21T00:00:00Z"
+}

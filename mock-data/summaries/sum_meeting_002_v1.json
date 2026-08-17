@@ -1,0 +1,12 @@
+{
+  "summary_id": "sum_meeting_20260722_MM_002_v1",
+  "meeting_id": "meeting_20260722_MM_002",
+  "summary_text": "Agent orchestration core message bus complete. Summarization agent integration in current sprint. Action extraction schema finalized with passing tests. Merkle tree PR target: Thursday. Proof verification endpoint: Friday. Anchoring demo: next Tuesday.",
+  "extracts": ["Message bus: done", "Merkle tree PR: Thursday EOD", "Verification endpoint: Friday", "Anchoring demo: Tuesday"],
+  "confidence": 0.94,
+  "summary_cid": "bafybeiexamplesummary0002",
+  "anchor_hash": "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
+  "approved_by": "alice",
+  "approved_at": "2026-07-22T10:50:00Z",
+  "created_at": "2026-07-22T10:45:00Z"
+}

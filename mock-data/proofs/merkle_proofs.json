@@ -1,0 +1,59 @@
+{
+  "description": "Merkle proof test vectors for frontend and backend verification code. Use keccak256 of canonical JSON for leaf hashes.",
+  "vectors": [
+    {
+      "name": "single_leaf_proof",
+      "description": "Single leaf — root equals keccak256(leaf). Proof is empty.",
+      "leaf": "0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890",
+      "root": "0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890",
+      "proof": [],
+      "expected": true
+    },
+    {
+      "name": "three_leaf_proof_for_L2",
+      "description": "Three-leaf tree. Proof for L2 includes sibling L1 and parent hash of L3.",
+      "leaves": [
+        "0xleaf1_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "0xleaf2_bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "0xleaf3_cccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+      ],
+      "target_leaf_index": 1,
+      "proof": [
+        "0xleaf1_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "0xparent_L3_hash_placeholder_00000000000000000000000000000000000000"
+      ],
+      "root": "0xroot_three_leaf_placeholder_0000000000000000000000000000000000000",
+      "expected": true,
+      "sort_pairs": true
+    },
+    {
+      "name": "tampered_leaf_fails",
+      "description": "Changed one character in summary text, recomputed leaf — verify returns false.",
+      "leaf": "0xTAMPERED_leaf_ffffffffffffffffffffffffffffffffffffffffffffffff",
+      "root": "0xrootabcdef1234567890abcdef1234567890abcdef1234567890abcdef123456",
+      "proof": ["0xsibling_hash_placeholder"],
+      "expected": false
+    },
+    {
+      "name": "confirmation_variance_0",
+      "description": "0 confirmations — UI should show pending.",
+      "tx_hash": "0xtx_pending_0000000000000000000000000000000000000000000000000000",
+      "confirmations": 0,
+      "expected_status": "pending"
+    },
+    {
+      "name": "confirmation_variance_3",
+      "description": "3 confirmations — UI should show confirming.",
+      "tx_hash": "0xtx_confirming_3333333333333333333333333333333333333333333333333",
+      "confirmations": 3,
+      "expected_status": "confirming"
+    },
+    {
+      "name": "confirmation_variance_12",
+      "description": "12+ confirmations — UI should show confirmed.",
+      "tx_hash": "0xtx_confirmed_cccccccccccccccccccccccccccccccccccccccccccccccc",
+      "confirmations": 12,
+      "expected_status": "confirmed"
+    }
+  ]
+}

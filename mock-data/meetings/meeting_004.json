@@ -1,0 +1,10 @@
+{
+  "meeting_id": "meeting_20260724_MM_004",
+  "title": "Investor Update Prep",
+  "date": "2026-07-24T14:00:00Z",
+  "participants": ["alice", "bob", "henry"],
+  "transcript_file": "transcripts/meeting_004.txt",
+  "status": "processing",
+  "duration_ms": 3600000,
+  "tags": ["investors", "fundraising", "series-b"]
+}

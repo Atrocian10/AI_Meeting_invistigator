@@ -1,0 +1,13 @@
+{
+  "anchor_id": "root_optimism_20260722_b1",
+  "root_hash": "0xroot_op_567890abcdef1234567890abcdef1234567890abcdef1234567890abcd",
+  "batch": ["0xleaf_sum004", "0xleaf_sum005"],
+  "tx_hash": "0xtx_anchor_optimism_20260722_cafebabe000000000000000000000000000000",
+  "network": "optimism",
+  "pinned_cid": "bafybeibatchcid_optimism_001",
+  "submitter": "0xMMrelayer00000000000000000000000000000000",
+  "status": "confirmed",
+  "confirmations": 128,
+  "gas_used": "98321",
+  "created_at": "2026-07-22T11:00:00Z"
+}

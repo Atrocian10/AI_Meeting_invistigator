@@ -1,0 +1,12 @@
+{
+  "summary_id": "sum_meeting_20260723_MM_003_v1",
+  "meeting_id": "meeting_20260723_MM_003",
+  "summary_text": "Sprint 14 standup. Wallet connect mock UI PR up for review (one minor comment). Eve blocked on NFT metadata schema — needs product input. Frank fixing CORS for edge functions (ETA: lunch). Grace picking up agent event feed component next. Investor demo on July 24th.",
+  "extracts": ["Wallet connect PR: under review", "NFT schema: blocked on product", "CORS fix: today", "Investor demo: July 24"],
+  "confidence": 0.91,
+  "summary_cid": "bafybeiexamplesummary0003",
+  "anchor_hash": null,
+  "approved_by": null,
+  "approved_at": null,
+  "created_at": "2026-07-23T09:20:00Z"
+}

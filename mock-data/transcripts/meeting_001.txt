@@ -1,0 +1,9 @@
+[00:00] alice: Let's discuss the Q3 marketing budget. We have $50K to allocate.
+[00:15] bob: I'd propose $20K for LinkedIn ads, $15K for content marketing, and $15K for events.
+[00:32] carol: That sounds balanced. What's the timeline for the LinkedIn campaigns?
+[00:45] bob: We should have ad copy ready by August 5th. I can draft the first versions.
+[01:02] alice: Good. Carol, can you coordinate the event sponsorships?
+[01:15] carol: Sure, I'll start reaching out to Web3 conferences this week.
+[01:30] alice: Let's also set up attribution tracking. Bob, make sure UTM params are in place.
+[01:45] bob: Already on it. I'll share a tracking sheet by end of week.
+[02:00] alice: Great. Let's reconvene next Monday to review the ad drafts. Meeting adjourned.

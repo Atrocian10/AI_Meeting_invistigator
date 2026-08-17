@@ -1,0 +1,11 @@
+[00:00] frank: Security audit follow-up. Ivan, what were the main findings?
+[00:15] ivan: Three items: RLS policies need review on the meetings table, edge function CORS headers are too permissive in production, and we need rate limiting on the AI endpoints.
+[00:40] grace: I can tighten the CORS config — I'll match it to the documented allow-list.
+[01:00] frank: Good. Ivan, can you write the RLS policy recommendations?
+[01:15] ivan: Yes, I'll have them by EOD. We should also add input validation on the transcript upload endpoint.
+[01:30] frank: Agreed. Grace, add content-type and size checks to the upload middleware.
+[01:45] grace: On it. What's the max file size we're targeting?
+[02:00] ivan: 50MB should cover 2-hour meetings. Add a clear error message if exceeded.
+[02:15] frank: Let's also set up automated security scans in CI. Ivan, can you add the GitHub Action?
+[02:30] ivan: Will do. I'll base it on the npm audit + custom checks pattern.
+[02:45] frank: Great. Let's reconvene Friday to verify all fixes are merged.

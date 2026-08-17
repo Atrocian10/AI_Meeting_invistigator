@@ -1,0 +1,10 @@
+{
+  "meeting_id": "meeting_20260725_MM_005",
+  "title": "Security Audit Review",
+  "date": "2026-07-25T11:00:00Z",
+  "participants": ["frank", "grace", "ivan"],
+  "transcript_file": "transcripts/meeting_005.txt",
+  "status": "completed",
+  "duration_ms": 2700000,
+  "tags": ["security", "audit", "compliance"]
+}

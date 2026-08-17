@@ -1,0 +1,10 @@
+{
+  "meeting_id": "meeting_20260723_MM_003",
+  "title": "Engineering Standup — Sprint 14",
+  "date": "2026-07-23T09:00:00Z",
+  "participants": ["dave", "eve", "frank", "grace"],
+  "transcript_file": "transcripts/meeting_003.txt",
+  "status": "completed",
+  "duration_ms": 900000,
+  "tags": ["standup", "sprint-14", "engineering"]
+}

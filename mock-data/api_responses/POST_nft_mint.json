@@ -1,0 +1,20 @@
+{
+  "success": {
+    "tx_hash": "0xtx_mint_polygon_20260721_00000000000000000000000000000000000042",
+    "token_id": 42,
+    "token_uri": "ipfs://bafybei_token42_metadata",
+    "network": "polygon",
+    "to": "0xMMa1b2c3d4e5f678901234567890abcdef1234567"
+  },
+  "error_insufficient_funds": {
+    "error": "reverted",
+    "reason": "insufficient funds",
+    "tx_hash": null,
+    "receipt": {"status": 0, "gasUsed": "21000"}
+  },
+  "error_duplicate": {
+    "error": "reverted",
+    "reason": "token already minted for this summary",
+    "tx_hash": null
+  }
+}

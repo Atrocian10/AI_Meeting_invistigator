@@ -1,0 +1,13 @@
+{
+  "note": "Synthetic test accounts for local dev/demo only. Never use real private keys.",
+  "accounts": [
+    {"name":"orgRelayer","address":"0xMMrelayer00000000000000000000000000000000","role":"relayer","mnemonic":"test test test test test test test test test test test relayer","balances":{"ETH":"10.0","MMT":"100000"}},
+    {"name":"alice","address":"0xMMa1b2c3d4e5f678901234567890abcdef1234567","role":"approver","mnemonic":"test test test test test test test test test test test alice","balances":{"ETH":"5.0","MMT":"50000"}},
+    {"name":"bob","address":"0xMMb0b0000000000000000000000000000000000","role":"assignee","mnemonic":"test test test test test test test test test test test bob","balances":{"ETH":"2.0","MMT":"25000"}},
+    {"name":"carol","address":"0xMMcar0l000000000000000000000000000000000","role":"assignee","mnemonic":"test test test test test test test test test test test carol","balances":{"ETH":"2.0","MMT":"25000"}},
+    {"name":"dave","address":"0xMMdav3000000000000000000000000000000000","role":"engineer","mnemonic":"test test test test test test test test test test test dave","balances":{"ETH":"3.0","MMT":"30000"}},
+    {"name":"eve","address":"0xMM3v3e000000000000000000000000000000000","role":"engineer","mnemonic":"test test test test test test test test test test test eve","balances":{"ETH":"3.0","MMT":"30000"}},
+    {"name":"treasury","address":"0xMMtreasuryfffffffffffffffffffffffffffffff","role":"multisig","mnemonic":"test test test test test test test test test test test treasury","balances":{"ETH":"100.0","MMT":"1000000"}},
+    {"name":"marketplaceSeller","address":"0xMMseller00000000000000000000000000000000","role":"seller","mnemonic":"test test test test test test test test test test test seller","balances":{"ETH":"1.0","MMT":"10000"}}
+  ]
+}

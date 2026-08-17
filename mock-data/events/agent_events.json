@@ -1,0 +1,17 @@
+[
+  {"id":"evt_001","time":"2026-07-21T16:00:05Z","agent":"TranscriptionAgent","type":"transcript_ready","status":"success","payload":{"transcript_id":"trans_meeting_20260721_MM_001_v1","meeting_id":"meeting_20260721_MM_001","segments_count":3}},
+  {"id":"evt_002","time":"2026-07-21T16:01:30Z","agent":"SummarizationAgent","type":"summary_ready","status":"success","payload":{"summary_id":"sum_meeting_20260721_MM_001_v1","confidence":0.92}},
+  {"id":"evt_003","time":"2026-07-21T16:02:00Z","agent":"ActionExtractionAgent","type":"action_items_created","status":"success","payload":{"meeting_id":"meeting_20260721_MM_001","count":3}},
+  {"id":"evt_004","time":"2026-07-21T16:03:00Z","agent":"SentimentAnalyzer","type":"sentiment_analyzed","status":"success","payload":{"meeting_id":"meeting_20260721_MM_001","overall":"positive","score":0.78}},
+  {"id":"evt_005","time":"2026-07-21T16:05:30Z","agent":"OrchestrationAgent","type":"anchor_submitted","status":"success","payload":{"anchor_id":"root_polygon_20260721_b1","network":"polygon","batch_size":3}},
+  {"id":"evt_006","time":"2026-07-21T16:10:00Z","agent":"OrchestrationAgent","type":"anchor_confirmed","status":"success","payload":{"anchor_id":"root_polygon_20260721_b1","tx_hash":"0xtx_anchor_polygon_20260721_deadbeef000000000000000000000000000000","confirmations":64}},
+  {"id":"evt_007","time":"2026-07-21T16:12:00Z","agent":"NFTAgent","type":"nft_minted","status":"success","payload":{"token_id":42,"token_uri":"ipfs://bafybei_token42_metadata","network":"polygon"}},
+  {"id":"evt_008","time":"2026-07-21T16:12:30Z","agent":"OrchestrationAgent","type":"delivery_receipt","status":"success","payload":{"action_id":"action_meeting_20260721_MM_001_01","delivered_to":"bob","channel":"slack"}},
+  {"id":"evt_009","time":"2026-07-22T10:42:00Z","agent":"TranscriptionAgent","type":"transcript_ready","status":"success","payload":{"transcript_id":"trans_meeting_20260722_MM_002_v1","meeting_id":"meeting_20260722_MM_002","segments_count":5}},
+  {"id":"evt_010","time":"2026-07-22T10:45:00Z","agent":"SummarizationAgent","type":"summary_ready","status":"success","payload":{"summary_id":"sum_meeting_20260722_MM_002_v1","confidence":0.94}},
+  {"id":"evt_011","time":"2026-07-23T09:20:00Z","agent":"SummarizationAgent","type":"summary_ready","status":"success","payload":{"summary_id":"sum_meeting_20260723_MM_003_v1","confidence":0.91}},
+  {"id":"evt_012","time":"2026-07-23T09:30:00Z","agent":"OrchestrationAgent","type":"anchor_submitted","status":"pending","payload":{"anchor_id":"root_arbitrum_20260723_b1","network":"arbitrum","batch_size":1}},
+  {"id":"evt_013","time":"2026-07-23T09:35:00Z","agent":"OrchestrationAgent","type":"anchor_failed","status":"error","payload":{"anchor_id":"root_arbitrum_20260723_b1","error":"relayer_timeout","retry_scheduled":"2026-07-23T09:40:00Z"}},
+  {"id":"evt_014","time":"2026-07-25T11:50:00Z","agent":"ActionExtractionAgent","type":"action_items_created","status":"success","payload":{"meeting_id":"meeting_20260725_MM_005","count":4}},
+  {"id":"evt_015","time":"2026-07-25T12:00:00Z","agent":"OrchestrationAgent","type":"escalation","status":"warning","payload":{"action_id":"action_meeting_20260723_MM_003_03","reason":"no_ack_5m","escalated_to":"ops_oncall"}}
+]

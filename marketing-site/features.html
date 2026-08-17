@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Features – MeetingMind AI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>body { font-family: 'Inter', sans-serif; }</style>
+</head>
+<body class="bg-gray-50 text-gray-800 antialiased">
+
+  <!-- Navigation (copy from index.html) -->
+  <nav class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+      <a href="index.html" class="flex items-center space-x-2">
+        <div class="w-8 h-8 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg flex items-center justify-center">
+          <i class="fas fa-robot text-white text-sm"></i>
+        </div>
+        <span class="font-bold text-xl text-gray-900">MeetingMind<span class="text-indigo-600">.AI</span></span>
+      </a>
+      <div class="hidden md:flex space-x-8 text-sm font-medium">
+        <a href="features.html" class="text-gray-700 hover:text-indigo-600">Features</a>
+        <a href="pricing.html" class="text-gray-700 hover:text-indigo-600">Pricing</a>
+        <a href="demo.html" class="text-gray-700 hover:text-indigo-600">Live demo</a>
+        <a href="about.html" class="text-gray-700 hover:text-indigo-600">About</a>
+      </div>
+      <div>
+        <a href="demo.html" class="bg-indigo-600 text-white px-5 py-2 rounded-xl text-sm font-semibold hover:bg-indigo-700 transition shadow-md">Try demo</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+    <h1 class="text-4xl font-extrabold text-center text-gray-900">Everything your team needs</h1>
+    <p class="text-center text-xl text-gray-500 mt-4 max-w-3xl mx-auto">Powered by Z.AI's GLM models, we turn conversations into structured knowledge.</p>
+
+    <div class="mt-20 grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Feature 1 -->
+      <div class="bg-white p-8 rounded-2xl border border-gray-200 shadow-sm hover:shadow-lg transition">
+        <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mb-4">
+          <i class="fas fa-microphone-alt text-indigo-600 text-2xl"></i>
+        </div>
+        <h3 class="text-xl font-bold">Real‑time transcription</h3>
+        <p class="text-gray-600 mt-2">Live transcription with speaker diarization, enhanced by GLM‑4 for punctuation and context.</p>
+      </div>
+      <!-- Feature 2 -->
+      <div class="bg-white p-8 rounded-2xl border border-gray-200 shadow-sm hover:shadow-lg transition">
+        <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mb-4">
+          <i class="fas fa-file-alt text-indigo-600 text-2xl"></i>
+        </div>
+        <h3 class="text-xl font-bold">Smart summaries</h3>
+        <p class="text-gray-600 mt-2">GLM condenses hours into bullet points, decisions, and open questions – in your preferred format.</p>
+      </div>
+      <!-- Feature 3 -->
+      <div class="bg-white p-8 rounded-2xl border border-gray-200 shadow-sm hover:shadow-lg transition">
+        <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mb-4">
+          <i class="fas fa-tasks text-indigo-600 text-2xl"></i>
+        </div>
+        <h3 class="text-xl font-bold">Action item extraction</h3>
+        <p class="text-gray-600 mt-2">Automatically detects tasks, owners, and due dates. Syncs to Jira, Asana, Trello, Linear.</p>
+      </div>
+      <!-- Feature 4 -->
+      <div class="bg-white p-8 rounded-2xl border border-gray-200 shadow-sm hover:shadow-lg transition">
+        <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mb-4">
+          <i class="fas fa-search text-indigo-600 text-2xl"></i>
+        </div>
+        <h3 class="text-xl font-bold">Meeting Q&A</h3>
+        <p class="text-gray-600 mt-2">Ask “what was the budget?” – our RAG pipeline retrieves answers from past meetings using GLM embeddings.</p>
+      </div>
+      <!-- Feature 5 -->
+      <div class="bg-white p-8 rounded-2xl border border-gray-200 shadow-sm hover:shadow-lg transition">
+        <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mb-4">
+          <i class="fas fa-calendar-alt text-indigo-600 text-2xl"></i>
+        </div>
+        <h3 class="text-xl font-bold">Calendar integration</h3>
+        <p class="text-gray-600 mt-2">Connects with Google / Outlook. Agent joins automatically, no manual invites.</p>
+      </div>
+      <!-- Feature 6 -->
+      <div class="bg-white p-8 rounded-2xl border border-gray-200 shadow-sm hover:shadow-lg transition">
+        <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mb-4">
+          <i class="fas fa-shield-alt text-indigo-600 text-2xl"></i>
+        </div>
+        <h3 class="text-xl font-bold">Enterprise‑grade security</h3>
+        <p class="text-gray-600 mt-2">End‑to‑end encryption, SOC2 compliant, and optional on‑prem deployment.</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer (same as index) -->
+  <footer class="bg-gray-900 text-gray-300 py-12 mt-20">
+    <div class="max-w-7xl mx-auto px-4 text-sm flex flex-col md:flex-row justify-between items-center">
+      <div class="flex items-center gap-2">
+        <i class="fas fa-robot text-indigo-400"></i>
+        <span class="font-semibold">MeetingMind AI</span>
+      </div>
+      <div class="flex gap-8 mt-4 md:mt-0">
+        <a href="about.html" class="hover:text-white">About</a>
+        <a href="#" class="hover:text-white">Privacy</a>
+        <a href="#" class="hover:text-white">Terms</a>
+      </div>
+      <div class="mt-4 md:mt-0">© 2026 · Built for UK AI Agent Hackathon</div>
+    </div>
+  </footer>
+</body>
+</html>

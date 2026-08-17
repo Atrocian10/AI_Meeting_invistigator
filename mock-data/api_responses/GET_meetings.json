@@ -1,0 +1,12 @@
+{
+  "meetings": [
+    {"meeting_id":"meeting_20260721_MM_001","title":"Q3 Budget Planning","date":"2026-07-21T16:00:00Z","status":"completed","participants":["alice","bob","carol"],"has_summary":true,"has_anchor":true,"has_nft":true},
+    {"meeting_id":"meeting_20260722_MM_002","title":"Product Roadmap Sync","date":"2026-07-22T10:00:00Z","status":"completed","participants":["alice","dave","eve"],"has_summary":true,"has_anchor":true,"has_nft":true},
+    {"meeting_id":"meeting_20260723_MM_003","title":"Engineering Standup — Sprint 14","date":"2026-07-23T09:00:00Z","status":"completed","participants":["dave","eve","frank","grace"],"has_summary":true,"has_anchor":false,"has_nft":false},
+    {"meeting_id":"meeting_20260724_MM_004","title":"Investor Update Prep","date":"2026-07-24T14:00:00Z","status":"processing","participants":["alice","bob","henry"],"has_summary":false,"has_anchor":false,"has_nft":false},
+    {"meeting_id":"meeting_20260725_MM_005","title":"Security Audit Review","date":"2026-07-25T11:00:00Z","status":"completed","participants":["frank","grace","ivan"],"has_summary":true,"has_anchor":false,"has_nft":false}
+  ],
+  "total": 5,
+  "page": 1,
+  "per_page": 20
+}

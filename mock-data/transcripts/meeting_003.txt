@@ -1,0 +1,8 @@
+[00:00] dave: Sprint 14 standup. Grace, you first.
+[00:08] grace: Finished the wallet connect mock UI. PR is up for review.
+[00:18] frank: I reviewed it — looks good, one minor comment on the state hook.
+[00:28] eve: I'm blocked on the NFT metadata schema — need input from product on required attributes.
+[00:40] dave: I'll ping alice after this. Frank, your update?
+[00:52] frank: Working on the CORS fix for edge functions. Should be done by lunch.
+[01:05] grace: I'll pick up the agent event feed component next.
+[01:15] dave: Good. Let's keep velocity up — we demo to investors on the 24th.

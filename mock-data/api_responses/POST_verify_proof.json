@@ -1,0 +1,15 @@
+{
+  "success": {
+    "verified": true,
+    "summary_id": "sum_meeting_20260721_MM_001_v1",
+    "root": "0xrootabcdef1234567890abcdef1234567890abcdef1234567890abcdef123456",
+    "network": "polygon",
+    "tx_hash": "0xtx_anchor_polygon_20260721_deadbeef000000000000000000000000000000"
+  },
+  "failure": {
+    "verified": false,
+    "summary_id": "sum_meeting_20260721_MM_001_v1",
+    "error": "leaf_hash_mismatch",
+    "detail": "Computed leaf hash does not match any leaf in the anchored Merkle tree."
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "description": "Configuration for seed-mock-data script",
+  "db": "sqlite",
+  "vector_store": "file",
+  "mock_data_dir": "./mock-data",
+  "tables": ["meetings", "transcripts", "action_items", "embeddings", "audit_logs"],
+  "meeting_files": [
+    "meetings/meeting_001.json",
+    "meetings/meeting_002.json",
+    "meetings/meeting_003.json",
+    "meetings/meeting_004.json",
+    "meetings/meeting_005.json"
+  ],
+  "action_files": [
+    "actions/actions_meeting_001.json",
+    "actions/actions_meeting_002.json",
+    "actions/actions_meeting_003.json",
+    "actions/actions_meeting_005.json"
+  ],
+  "summary_files": [
+    "summaries/sum_meeting_001_v1.json",
+    "summaries/sum_meeting_002_v1.json",
+    "summaries/sum_meeting_003_v1.json"
+  ]
+}

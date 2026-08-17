@@ -1,0 +1,21 @@
+{
+  "name": "Meeting Q3 Budget — Approved Summary #42",
+  "description": "A verified summary minted for demonstration. The summary body is referenced via IPFS CID.",
+  "image": "ipfs://bafybei_placeholder_image_42",
+  "summary_cid": "bafybeiexamplesummary0001",
+  "summary_hash": "0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890",
+  "meeting_id": "meeting_20260721_MM_001",
+  "anchor": {
+    "root": "0xrootabcdef1234567890abcdef1234567890abcdef1234567890abcdef123456",
+    "tx_hash": "0xtx_anchor_polygon_20260721_deadbeef000000000000000000000000000000",
+    "network": "polygon"
+  },
+  "license": "CC-BY-NC-4.0",
+  "attributes": [
+    {"trait_type": "confidence", "value": 0.92},
+    {"trait_type": "approved_by", "value": "alice"},
+    {"trait_type": "meeting_date", "value": "2026-07-21"},
+    {"trait_type": "network", "value": "polygon"}
+  ],
+  "created_at": "2026-07-21T16:12:00Z"
+}

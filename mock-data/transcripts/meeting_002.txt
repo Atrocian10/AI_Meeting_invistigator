@@ -1,0 +1,11 @@
+[00:00] alice: Roadmap check-in. Dave, where are we on the agent orchestration layer?
+[00:18] dave: Core message bus is done. We're integrating the summarization agent this sprint.
+[00:35] eve: I've finished the action extraction function calling schema. Tests are green.
+[00:50] alice: Excellent. What about the blockchain anchoring feature?
+[01:05] dave: That's Sprint 15. We need the Merkle tree library finalized first.
+[01:22] eve: I can start on the proof verification endpoint this week if Dave lands the tree code.
+[01:40] alice: Let's do that. Dave, can you have the Merkle tree PR up by Thursday?
+[01:55] dave: Yes, I'll target Thursday EOD.
+[02:10] alice: Eve, plan verification endpoint for Friday then. We'll demo anchoring next Tuesday.
+[02:25] eve: Sounds good. I'll also write the integration test vectors.
+[02:40] alice: Perfect. Anything else? No? Let's ship it.

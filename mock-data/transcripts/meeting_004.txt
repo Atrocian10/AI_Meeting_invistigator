@@ -1,0 +1,9 @@
+[00:00] alice: We need to prep the Series B investor update. Henry, what metrics do they want?
+[00:20] henry: ARR, MAU, agent processing volume, and blockchain anchor count.
+[00:40] bob: I can pull ARR and MAU from analytics by tomorrow.
+[01:00] alice: Good. Henry, can you draft the narrative around our AI agent differentiation?
+[01:20] henry: Yes. I'll focus on the multi-agent orchestration and the on-chain verification angle.
+[01:40] alice: Let's also include a live demo. Dave's team is building the anchoring demo for Tuesday.
+[02:00] bob: I'll create the deck template. Target: final review on the 28th.
+[02:20] henry: We should also mention the DAO governance module — even if it's roadmap, it shows vision.
+[02:40] alice: Agreed. Let's include it as a forward-looking slide. Meeting wrapped.

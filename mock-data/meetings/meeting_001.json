@@ -1,0 +1,10 @@
+{
+  "meeting_id": "meeting_20260721_MM_001",
+  "title": "Q3 Budget Planning",
+  "date": "2026-07-21T16:00:00Z",
+  "participants": ["alice", "bob", "carol"],
+  "transcript_file": "transcripts/meeting_001.txt",
+  "status": "completed",
+  "duration_ms": 1800000,
+  "tags": ["budget", "q3", "marketing"]
+}

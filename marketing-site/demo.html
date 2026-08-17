@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Demo – MeetingMind AI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>body { font-family: 'Inter', sans-serif; }</style>
+</head>
+<body class="bg-gray-50 text-gray-800 antialiased">
+
+  <nav class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+      <a href="index.html" class="flex items-center space-x-2">
+        <div class="w-8 h-8 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg flex items-center justify-center">
+          <i class="fas fa-robot text-white text-sm"></i>
+        </div>
+        <span class="font-bold text-xl text-gray-900">MeetingMind<span class="text-indigo-600">.AI</span></span>
+      </a>
+      <div class="hidden md:flex space-x-8 text-sm font-medium">
+        <a href="features.html" class="text-gray-700 hover:text-indigo-600">Features</a>
+        <a href="pricing.html" class="text-gray-700 hover:text-indigo-600">Pricing</a>
+        <a href="demo.html" class="text-gray-700 hover:text-indigo-600">Live demo</a>
+        <a href="about.html" class="text-gray-700 hover:text-indigo-600">About</a>
+      </div>
+      <div>
+        <a href="demo.html" class="bg-indigo-600 text-white px-5 py-2 rounded-xl text-sm font-semibold hover:bg-indigo-700 transition shadow-md">Try demo</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+    <h1 class="text-4xl font-extrabold text-center text-gray-900">Try MeetingMind live</h1>
+    <p class="text-center text-xl text-gray-500 mt-2">Sample meeting transcript → click "Process" → watch GLM extract summary & tasks.</p>
+
+    <div class="mt-12 grid lg:grid-cols-2 gap-8">
+      <!-- left: transcript input -->
+      <div class="bg-gray-50 p-6 rounded-2xl border border-gray-200 shadow-lg">
+        <h3 class="text-lg font-bold flex items-center gap-2 mb-4"><i class="fas fa-file-alt text-indigo-600"></i> Raw transcript</h3>
+        <textarea id="transcript-input" rows="10" class="w-full p-4 border border-gray-300 rounded-xl text-sm font-mono bg-white" readonly>
+Alice: Let's finalize the Q3 marketing budget. We have $50k left.
+Bob: I'd allocate $20k to LinkedIn ads, $15k to content, and $15k to events.
+Carol: Events team needs the money by August 10th to book venues.
+Alice: Agreed. Bob, can you draft the ad copy by next Friday?
+Bob: Sure, I'll have it ready by August 5th.
+Carol: I'll coordinate with events and send the requirements.
+Alice: Great. Let's also decide on the new landing page.
+Bob: We'll need developer time. I can ask DevOps.
+Alice: Perfect. Please open a ticket in Jira and tag me.
+        </textarea>
+        <div class="flex flex-wrap gap-3 mt-4">
+          <button id="process-demo-btn" class="bg-indigo-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-indigo-700 transition flex items-center gap-2 shadow-md">
+            <i class="fas fa-magic"></i> Process with MeetingMind (GLM)
+          </button>
+          <button id="reset-demo-btn" class="bg-gray-200 text-gray-800 px-6 py-3 rounded-xl font-semibold hover:bg-gray-300 transition flex items-center gap-2">
+            <i class="fas fa-undo-alt"></i> Reset
+          </button>
+        </div>
+        <p class="text-xs text-gray-400 mt-4 flex items-center gap-1"><i class="fas fa-info-circle"></i> Simulation uses pre‑computed GLM output for demo speed.</p>
+      </div>
+
+      <!-- right: results -->
+      <div class="space-y-6">
+        <div class="bg-indigo-50 p-6 rounded-2xl border border-indigo-200 shadow-lg" id="summary-card">
+          <h3 class="font-bold text-indigo-800 flex items-center gap-2 text-lg"><i class="fas fa-align-left"></i> GLM‑generated summary</h3>
+          <div id="summary-content" class="mt-3 text-gray-700 text-sm leading-relaxed">
+            ⏳ Click "Process" to see the AI summary...
+          </div>
+        </div>
+        <div class="bg-green-50 p-6 rounded-2xl border border-green-200 shadow-lg" id="actions-card">
+          <h3 class="font-bold text-green-800 flex items-center gap-2 text-lg"><i class="fas fa-check-circle"></i> Extracted action items</h3>
+          <div id="actions-content" class="mt-3 text-gray-700 text-sm">
+            ⏳ Click "Process" to see extracted tasks...
+          </div>
+        </div>
+        <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-md">
+          <h3 class="font-semibold text-gray-800 flex items-center gap-2"><i class="fas fa-question-circle text-indigo-500"></i> Ask about this meeting</h3>
+          <div class="flex gap-2 mt-3">
+            <input type="text" id="question-input" placeholder="e.g., What is the budget for LinkedIn?" class="flex-1 border border-gray-300 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-indigo-300 outline-none">
+            <button id="ask-btn" class="bg-indigo-100 text-indigo-700 px-5 py-3 rounded-xl font-medium hover:bg-indigo-200 transition">Ask</button>
+          </div>
+          <div id="answer-box" class="mt-4 p-4 bg-gray-100 rounded-xl text-sm text-gray-700 hidden">
+            <i class="fas fa-robot text-indigo-500 mr-2"></i>
+            <span id="answer-text"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Z.AI attribution -->
+    <div class="mt-16 text-center text-sm text-gray-400 flex items-center justify-center gap-2 border-t pt-8 border-gray-200">
+      <span class="w-5 h-5 bg-indigo-600 rounded-full flex items-center justify-center text-white text-xs">Z</span> core AI powered by <span class="font-semibold text-indigo-600">Z.AI GLM series models</span> (GLM-4, GLM-3-turbo)
+    </div>
+  </main>
+
+  <footer class="bg-gray-900 text-gray-300 py-12 mt-20">
+    <div class="max-w-7xl mx-auto px-4 text-sm flex flex-col md:flex-row justify-between items-center">
+      <div class="flex items-center gap-2">
+        <i class="fas fa-robot text-indigo-400"></i>
+        <span class="font-semibold">MeetingMind AI</span>
+      </div>
+      <div class="flex gap-8 mt-4 md:mt-0">
+        <a href="about.html" class="hover:text-white">About</a>
+        <a href="#" class="hover:text-white">Privacy</a>
+        <a href="#" class="hover:text-white">Terms</a>
+      </div>
+      <div class="mt-4 md:mt-0">© 2026 · Built for UK AI Agent Hackathon</div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      const mockSummary = "The team agreed on Q3 marketing budget allocation: $20k for LinkedIn ads, $15k for content, $15k for events (with $50k total). Carol needs the event budget by Aug 10. Bob will draft ad copy by Aug 5. A new landing page requires developer time – Bob will open a Jira ticket.";
+      const mockActions = [
+        "• **Bob**: Draft LinkedIn ad copy – due Aug 5",
+        "• **Carol**: Coordinate events & send venue requirements – due Aug 10 (budget needed)",
+        "• **Bob**: Open Jira ticket for landing page development, tag Alice",
+        "• **Alice**: Review ad copy and Jira ticket"
+      ];
+      const mockAnswers = {
+        "budget for linkedin": "The budget allocated for LinkedIn ads is $20k.",
+        "linkedin": "$20k for LinkedIn ads.",
+        "deadline": "Carol needs the event budget by August 10th. Bob's ad copy is due August 5th.",
+        "august": "August 5th (Bob's copy) and August 10th (events budget).",
+        "jira": "Bob will open a Jira ticket for the landing page and tag Alice.",
+        "default": "Based on the meeting, Bob is handling ad copy (due Aug 5), Carol events, and a Jira ticket will be created for the landing page."
+      };
+
+      const summaryDiv = document.getElementById('summary-content');
+      const actionsDiv = document.getElementById('actions-content');
+      const processBtn = document.getElementById('process-demo-btn');
+      const resetBtn = document.getElementById('reset-demo-btn');
+      const askBtn = document.getElementById('ask-btn');
+      const questionInput = document.getElementById('question-input');
+      const answerBox = document.getElementById('answer-box');
+      const answerText = document.getElementById('answer-text');
+
+      const originalSummary = summaryDiv.innerHTML;
+      const originalActions = actionsDiv.innerHTML;
+
+      processBtn.addEventListener('click', function() {
+        processBtn.disabled = true;
+        processBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> GLM thinking...';
+        setTimeout(() => {
+          summaryDiv.innerHTML = mockSummary;
+          let actionsHtml = '<ul class="list-disc list-inside space-y-1">';
+          mockActions.forEach(item => { actionsHtml += `<li>${item}</li>`; });
+          actionsHtml += '</ul>';
+          actionsDiv.innerHTML = actionsHtml;
+          processBtn.disabled = false;
+          processBtn.innerHTML = '<i class="fas fa-magic"></i> Process with MeetingMind (GLM)';
+        }, 1000);
+      });
+
+      resetBtn.addEventListener('click', function() {
+        summaryDiv.innerHTML = originalSummary;
+        actionsDiv.innerHTML = originalActions;
+        answerBox.classList.add('hidden');
+        questionInput.value = '';
+        processBtn.disabled = false;
+        processBtn.innerHTML = '<i class="fas fa-magic"></i> Process with MeetingMind (GLM)';
+      });
+
+      askBtn.addEventListener('click', function() {
+        const question = questionInput.value.trim().toLowerCase();
+        if (!question) { alert('Please enter a question.'); return; }
+        let answer = mockAnswers.default;
+        for (let key in mockAnswers) {
+          if (question.includes(key)) {
+            answer = mockAnswers[key];
+            break;
+          }
+        }
+        answerText.innerText = answer;
+        answerBox.classList.remove('hidden');
+      });
+
+      questionInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') askBtn.click();
+      });
+    })();
+  </script>
+</body>
+</html>

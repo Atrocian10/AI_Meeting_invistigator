@@ -1,0 +1,10 @@
+{
+  "meeting_id": "meeting_20260722_MM_002",
+  "title": "Product Roadmap Sync",
+  "date": "2026-07-22T10:00:00Z",
+  "participants": ["alice", "dave", "eve"],
+  "transcript_file": "transcripts/meeting_002.txt",
+  "status": "completed",
+  "duration_ms": 2400000,
+  "tags": ["product", "roadmap", "engineering"]
+}

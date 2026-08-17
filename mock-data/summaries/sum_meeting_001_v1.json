@@ -1,0 +1,12 @@
+{
+  "summary_id": "sum_meeting_20260721_MM_001_v1",
+  "meeting_id": "meeting_20260721_MM_001",
+  "summary_text": "Budget: $50,000 allocated — LinkedIn $20k, Content $15k, Events $15k. Deadlines: Ad copy by Aug 5. Carol to coordinate Web3 conference sponsorships. Bob to set up UTM tracking by end of week. Reconvene Monday for ad draft review.",
+  "extracts": ["LinkedIn: $20,000", "Content: $15,000", "Events: $15,000", "Deadline: Ad copy Aug 5", "Decision: Q3 budget approved"],
+  "confidence": 0.92,
+  "summary_cid": "bafybeiexamplesummary0001",
+  "anchor_hash": "0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890",
+  "approved_by": "alice",
+  "approved_at": "2026-07-21T16:05:00Z",
+  "created_at": "2026-07-21T16:03:00Z"
+}

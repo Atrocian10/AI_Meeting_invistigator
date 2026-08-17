@@ -1,4 +1,4 @@
-# MeetingMind AI
+# Meeting AI Investigator
 
 > Turn messy meetings into clear, actionable outcomes — automatically.
 

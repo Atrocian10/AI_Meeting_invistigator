@@ -1,377 +1,387 @@
-# MeetingMind AI 
+# MeetingMind AI
+
+> Turn messy meetings into clear, actionable outcomes — automatically.
 
 ---
 
-## **Table of contents**
+## Table of Contents
 
-1. [Project overview](https://chatgpt.com/c/69a5b4a3-3c9c-8328-be04-7b787a42e894#project-overview)  
-2. [High-level architecture diagrams](https://chatgpt.com/c/69a5b4a3-3c9c-8328-be04-7b787a42e894#high-level-architecture-diagrams)  
-3. [Core components](https://chatgpt.com/c/69a5b4a3-3c9c-8328-be04-7b787a42e894#core-components)  
-4. [Data & model mapping](https://chatgpt.com/c/69a5b4a3-3c9c-8328-be04-7b787a42e894#data--model-mapping)  
-5. [API surface & event model](https://chatgpt.com/c/69a5b4a3-3c9c-8328-be04-7b787a42e894#api-surface--event-model)  
-6. [Local development & runbook (Docker Compose)](https://chatgpt.com/c/69a5b4a3-3c9c-8328-be04-7b787a42e894#local-development--runbook-docker-compose)  
-7. [Production deployment notes (Kubernetes)](https://chatgpt.com/c/69a5b4a3-3c9c-8328-be04-7b787a42e894#production-deployment-notes-kubernetes)  
-8. [Observability & SLOs](https://chatgpt.com/c/69a5b4a3-3c9c-8328-be04-7b787a42e894#observability--slos)  
-9. [Security, privacy & compliance](https://chatgpt.com/c/69a5b4a3-3c9c-8328-be04-7b787a42e894#security-privacy--compliance)  
-10. [Testing strategy](https://chatgpt.com/c/69a5b4a3-3c9c-8328-be04-7b787a42e894#testing-strategy)  
-11. [Contributing](https://chatgpt.com/c/69a5b4a3-3c9c-8328-be04-7b787a42e894#contributing)  
-12. [License](https://chatgpt.com/c/69a5b4a3-3c9c-8328-be04-7b787a42e894#license)
-
----
-
-## **Project overview**
-
-MeetingMind AI turns messy meetings into reliable, actionable workflows. The system listens or ingests meeting transcripts, runs a multi-agent pipeline to transcribe, summarize, extract action items, answer queries, and orchestrate integration into team tools. The orchestration layer routes tasks using policies and ML-informed heuristics while preserving audit trails and human oversight.
-
+1. [Project Overview](#project-overview)
+2. [Architecture Diagrams](#architecture-diagrams)
+3. [Core Components](#core-components)
+4. [AI Models Used](#ai-models-used)
+5. [API & Event Model](#api--event-model)
+6. [Local Setup (Docker Compose)](#local-setup-docker-compose)
+7. [Production Deployment (Kubernetes)](#production-deployment-kubernetes)
+8. [Observability & SLOs](#observability--slos)
+9. [Security & Compliance](#security--compliance)
+10. [Testing Strategy](#testing-strategy)
+11. [Contributing](#contributing)
+12. [License](#license)
 
 ---
 
-## **High-level architecture diagrams**
+## Project Overview
 
-Use the diagrams below as authoritative illustrations for design reviews and onboarding. They are written as **Mermaid** so they render on GitHub.
+MeetingMind AI listens to your meetings and does the heavy lifting for you. It takes audio or transcripts as input, runs them through a multi-agent AI pipeline, and outputs summaries, action items, and direct integrations with your team's tools.
 
-### **1\) System Overview (data flow)**
+The system is built around a routing layer that decides which agent handles what — with full audit trails and support for human overrides when needed.
 
-flowchart LR  
-  subgraph Ingest  
-    A\[Meeting audio / transcript\] \--\> B\[Ingest API / Uploader\]  
-    B \--\> C\[Preprocessor (speaker diarization, normalize)\]  
+---
+
+## Architecture Diagrams
+
+These diagrams are written in **Mermaid** and render directly on GitHub. Use them for design reviews or onboarding new team members.
+
+### 1) System Overview (Data Flow)
+
+```mermaid
+flowchart LR
+  subgraph Ingest
+    A[Meeting audio / transcript] --> B[Ingest API / Uploader]
+    B --> C[Preprocessor: speaker diarization, normalize]
   end
 
-  subgraph Agents  
-    C \--\> TA\[Transcription Agent\<br/\>GLM-4.5-Air\]  
-    TA \--\> SA\[Summarization Agent\<br/\>GLM-4.7 (Thinking Mode)\]  
-    TA \--\> AE\[Action Extraction Agent\<br/\>GLM-4.6 \+ Function Calling\]  
-    SA \--\> QA\[Q\&A Agent\<br/\>GLM-4-32B \+ RAG\]  
-    AE \--\> OR\[Orchestration Agent\<br/\>GLM-4.7-Flash \+ MCP\]  
+  subgraph Agents
+    C --> TA[Transcription Agent\nGLM-4.5-Air]
+    TA --> SA[Summarization Agent\nGLM-4.7 Thinking Mode]
+    TA --> AE[Action Extraction Agent\nGLM-4.6 + Function Calling]
+    SA --> QA[Q&A Agent\nGLM-4-32B + RAG]
+    AE --> OR[Orchestration Agent\nGLM-4.7-Flash + MCP]
   end
 
-  subgraph Integrations  
-    OR \--\> PT\[Project Tracker (generic)\]  
-    OR \--\> CHAT\[Team Chat (generic)\]  
-    OR \--\> CAL\[Calendar / Invite\]  
-    OR \--\> EMAIL\[Email\]  
+  subgraph Integrations
+    OR --> PT[Project Tracker]
+    OR --> CHAT[Team Chat]
+    OR --> CAL[Calendar / Invite]
+    OR --> EMAIL[Email]
   end
 
-  subgraph Observability  
-    OR \--\> MON\[Monitoring & Audit\]  
-    AE \--\> DB\[Vector DB (knowledge store)\]  
+  subgraph Observability
+    OR --> MON[Monitoring & Audit]
+    AE --> DB[Vector DB]
   end
+```
 
-### **2\) Sequence diagram — one meeting → actionable item**
+### 2) Sequence: One Meeting → Actionable Item
 
-sequenceDiagram  
-  participant User  
-  participant Ingest  
-  participant Transcription  
-  participant Summarizer  
-  participant Extractor  
-  participant Orchestrator  
+```mermaid
+sequenceDiagram
+  participant User
+  participant Ingest
+  participant Transcription
+  participant Summarizer
+  participant Extractor
+  participant Orchestrator
   participant Channel
 
-  User-\>\>Ingest: Upload audio / start meeting  
-  Ingest-\>\>Transcription: stream audio  
-  Transcription--\>\>Summarizer: cleaned transcript  
-  Summarizer--\>\>Extractor: summarized decisions  
-  Extractor--\>\>Orchestrator: structured action items (JSON)  
-  Orchestrator--\>\>Channel: create task / post message / calendar invite  
-  Channel--\>\>User: notification (ack)  
-  Orchestrator--\>\>Monitoring: audit log \+ metrics
+  User->>Ingest: Upload audio / start meeting
+  Ingest->>Transcription: Stream audio
+  Transcription-->>Summarizer: Cleaned transcript
+  Summarizer-->>Extractor: Summarized decisions
+  Extractor-->>Orchestrator: Structured action items (JSON)
+  Orchestrator-->>Channel: Create task / post message / calendar invite
+  Channel-->>User: Notification (ack)
+  Orchestrator-->>Monitoring: Audit log + metrics
+```
 
-### **3\) Component relationship (deployment view)**
+### 3) Component Relationship (Deployment View)
 
-graph TD  
-  subgraph Backend Cluster  
-    API\[FastAPI / GraphQL API\]  
-    OrchestratorSvc\[Orchestrator (worker)\]  
-    AgentWorkers\[Agent workers (containerized)\]  
-    WorkerQueue\[Message broker (RabbitMQ / Kafka)\]  
-    Redis(Cache)  
-    Postgres\[(Postgres DB)\]  
-    VectorDB\[(Vector DB)\]  
-    Storage\[(S3 / Object Storage)\]  
+```mermaid
+graph TD
+  subgraph Backend Cluster
+    API[FastAPI / GraphQL API]
+    OrchestratorSvc[Orchestrator worker]
+    AgentWorkers[Agent workers - containerized]
+    WorkerQueue[Message broker: RabbitMQ / Kafka]
+    Redis(Cache)
+    Postgres[(Postgres DB)]
+    VectorDB[(Vector DB)]
+    Storage[(S3 / Object Storage)]
   end
 
-  API \--\> WorkerQueue  
-  WorkerQueue \--\> AgentWorkers  
-  AgentWorkers \--\> VectorDB  
-  AgentWorkers \--\> Postgres  
-  AgentWorkers \--\> Storage  
-  OrchestratorSvc \--\> WorkerQueue  
-  API \--\> Redis  
-  API \--\> Postgres
+  API --> WorkerQueue
+  WorkerQueue --> AgentWorkers
+  AgentWorkers --> VectorDB
+  AgentWorkers --> Postgres
+  AgentWorkers --> Storage
+  OrchestratorSvc --> WorkerQueue
+  API --> Redis
+  API --> Postgres
+```
 
 ---
 
-## **Core components**
+## Core Components
 
-* **Ingest API**  
-  * Accepts audio files, recorded meetings, or transcripts (multipart upload / streaming).  
-  * Preprocess: speaker diarization, noise filtering, normalization.  
-* **Agent workers**  
-  * Dockerized processes that run specialized agents:  
-    * **Transcription Agent** — audio → cleaned text \+ speaker labels.  
-    * **Summarization Agent** — long context summarization with "thinking mode" traces.  
-    * **Action Extraction Agent** — function-calling to produce structured action items (JSON).  
-    * **Q\&A Agent** — RAG-powered answer retrieval from vector DB.  
-    * **Integration/Orchestration Agent** — routing, retries, channel fan-out, MCP tool discovery.  
-* **Orchestration & Routing**  
-  * Decision engine that applies routing rules (low-code), ML scoring, priority queues, and retry policies. Supports human overrides and audit trails.  
-* **Storage & DBs**  
-  * **Postgres** for metadata, audit logs.  
-  * **Vector DB** (Milvus/Pinecone/Weaviate or equivalent) for embeddings & retrieval.  
-  * **Object Storage** (S3 or compatible) for audio and transcripts.  
-* **Message broker**  
-  * RabbitMQ / Kafka / Redis Streams for scaling agent workloads and decoupling.  
-* **API & Web UI**  
-  * FastAPI (or Node.js) backend exposes ingestion endpoints, admin UI, and rule editor.  
-* **Monitoring & Audit**  
-  * Prometheus \+ Grafana and centralized logs (ELK / Loki) for metrics, SLA tracking, and forensics.
+| Component | What it does |
+|---|---|
+| **Ingest API** | Accepts audio files, recorded meetings, or transcripts. Handles speaker diarization and normalization. |
+| **Transcription Agent** | Converts audio to clean text with speaker labels. |
+| **Summarization Agent** | Produces deep summaries using chain-of-thought / thinking mode. |
+| **Action Extraction Agent** | Uses function-calling to pull out structured action items as JSON. |
+| **Q&A Agent** | Answers queries using RAG (retrieval from vector DB with citations). |
+| **Orchestration Agent** | Routes tasks, handles retries, and pushes to the right channels using MCP tool discovery. |
+| **Message Broker** | RabbitMQ / Kafka / Redis Streams for decoupling and scaling agent workloads. |
+| **Storage** | Postgres for metadata & audit logs, Vector DB for embeddings, S3 for audio & transcripts. |
+| **Monitoring** | Prometheus + Grafana for metrics, ELK/Loki for logs. |
 
 ---
 
-## **Data & model mapping**
+## AI Models Used
 
-The README assumes the following model assignment (logical mapping):
+These are the logical model assignments used in this architecture. Swap them out for your actual vendor model IDs or local checkpoints as needed.
 
-* **Transcription**: `GLM-4.5-Air` — low latency, large context for streaming transcription and speaker attribution.  
-* **Summarization**: `GLM-4.7` — chain-of-thought / thinking mode for deep summarization and decision extraction.  
-* **Action Extraction**: `GLM-4.6` — native function-calling and structured outputs (JSON).  
-* **Q\&A / RAG**: `GLM-4-32B` — retrieval-augmented generation for historical queries with citation.  
-* **Orchestration**: `GLM-4.7-Flash + MCP` — orchestration, tool discovery, high concurrency.
-
-These names are **logical references** in the architecture. The implementation should replace them with the exact vendor model signatures or local checkpoints your environment uses.
+| Task | Model | Why |
+|---|---|---|
+| Transcription | `GLM-4.5-Air` | Low latency, large context for streaming |
+| Summarization | `GLM-4.7` | Thinking mode for deep summaries |
+| Action Extraction | `GLM-4.6` | Native function-calling + structured JSON output |
+| Q&A / RAG | `GLM-4-32B` | Retrieval-augmented generation with citations |
+| Orchestration | `GLM-4.7-Flash + MCP` | Fast, high-concurrency tool routing |
 
 ---
 
-## **API surface & event model**
+## API & Event Model
 
-### **REST API example (FastAPI pseudo-spec)**
+### REST API (FastAPI)
 
-`POST /api/v1/meetings` — create a meeting (upload audio or transcript)
+**Create a meeting** — `POST /api/v1/meetings`
 
-POST /api/v1/meetings  
-Content-Type: multipart/form-data  
-Body:  
-  file: audio.mp3  
-  metadata: { "title": "Q3 Budget", "participants": \["alice","bob"\] }  
-Response: { "meeting\_id": "m\_123", "status": "processing" }
+```
+Content-Type: multipart/form-data
+Body:
+  file: audio.mp3
+  metadata: { "title": "Q3 Budget", "participants": ["alice","bob"] }
 
-`GET /api/v1/meetings/{id}/summary`
+Response: { "meeting_id": "m_123", "status": "processing" }
+```
 
-{  
-  "meeting\_id": "m\_123",  
-  "summary": \[  
-    "Budget: $50k allocated (LinkedIn $20k...)",   
-    "Decisions: Q3 plan approved"  
-  \],  
-  "action\_items": \[  
-    { "task": "Draft LinkedIn ad copy", "assignee": "Bob", "due\_date":"2026-08-05" }  
-  \],  
-  "audit\_log\_id": "audit\_456"  
+**Get summary** — `GET /api/v1/meetings/{id}/summary`
+
+```json
+{
+  "meeting_id": "m_123",
+  "summary": [
+    "Budget: $50k allocated (LinkedIn $20k...)",
+    "Decisions: Q3 plan approved"
+  ],
+  "action_items": [
+    { "task": "Draft LinkedIn ad copy", "assignee": "Bob", "due_date": "2026-08-05" }
+  ],
+  "audit_log_id": "audit_456"
 }
+```
 
-### **Example event flow (message broker)**
+### Event Flow (Message Broker)
 
-* `meeting.created` → preprocessing worker  
-* `transcript.ready` → transcription agent  
-* `summary.generated` → action extraction / storage  
-* `action.created` → orchestrator → delivery events (`delivery.sent`, `delivery.ack`, `delivery.failed`)
+```
+meeting.created       → preprocessing worker
+transcript.ready      → transcription agent
+summary.generated     → action extraction / storage
+action.created        → orchestrator → delivery events
+                           (delivery.sent, delivery.ack, delivery.failed)
+```
 
 ---
 
-## **Local development & runbook (Docker Compose)**
+## Local Setup (Docker Compose)
 
-A basic `docker-compose.yml` will spin up API, worker, Postgres, Redis, and a mock vector DB.
+A `docker-compose.yml` spins up the API, worker, Postgres, Redis, and a mock vector DB.
 
-version: '3.8'  
-services:  
-  postgres:  
-    image: postgres:15  
-    environment:  
-      POSTGRES\_PASSWORD: password  
-      POSTGRES\_DB: meetingmind  
-    volumes: \["./data/postgres:/var/lib/postgresql/data"\]
+```yaml
+version: '3.8'
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: meetingmind
+    volumes: ["./data/postgres:/var/lib/postgresql/data"]
 
-  redis:  
-    image: redis:7  
-    command: redis-server \--appendonly yes
+  redis:
+    image: redis:7
+    command: redis-server --appendonly yes
 
-  rabbitmq:  
-    image: rabbitmq:3-management  
-    ports: \["15672:15672","5672:5672"\]
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports: ["15672:15672","5672:5672"]
 
-  api:  
-    build: ./services/api  
-    command: uvicorn app.main:app \--host 0.0.0.0 \--port 8000 \--reload  
-    ports:  
-      \- "8000:8000"  
-    environment:  
-      \- DATABASE\_URL=postgresql://postgres:password@postgres/meetingmind  
-      \- REDIS\_URL=redis://redis:6379  
-      \- RABBIT\_URL=amqp://rabbitmq:5672  
-    depends\_on:  
-      \- postgres  
-      \- redis  
-      \- rabbitmq
+  api:
+    build: ./services/api
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:password@postgres/meetingmind
+      - REDIS_URL=redis://redis:6379
+      - RABBIT_URL=amqp://rabbitmq:5672
+    depends_on:
+      - postgres
+      - redis
+      - rabbitmq
 
-  worker:  
-    build: ./services/agents  
-    command: python \-u worker.py  
-    environment:  
-      \- RABBIT\_URL=amqp://rabbitmq:5672  
-      \- VECTOR\_URL=http://vector:8080  
-    depends\_on:  
-      \- rabbitmq  
-      \- api
+  worker:
+    build: ./services/agents
+    command: python -u worker.py
+    environment:
+      - RABBIT_URL=amqp://rabbitmq:5672
+      - VECTOR_URL=http://vector:8080
+    depends_on:
+      - rabbitmq
+      - api
+```
 
-**.env (example)**
+**`.env` example**
 
-DATABASE\_URL=postgresql://postgres:password@postgres/meetingmind  
-REDIS\_URL=redis://redis:6379  
-RABBIT\_URL=amqp://rabbitmq:5672  
-OBJECT\_STORAGE\_URL=http://minio:9000  
-SECRET\_KEY=change\_this\_to\_a\_secure\_value
+```env
+DATABASE_URL=postgresql://postgres:password@postgres/meetingmind
+REDIS_URL=redis://redis:6379
+RABBIT_URL=amqp://rabbitmq:5672
+OBJECT_STORAGE_URL=http://minio:9000
+SECRET_KEY=change_this_to_a_secure_value
+```
 
 **Quick start**
 
-git clone \<repo\>  
-cd repo  
-docker-compose up \--build  
-\# Open http://localhost:8000/docs
+```bash
+git clone <repo>
+cd repo
+docker-compose up --build
+# Visit http://localhost:8000/docs
+```
 
 ---
 
-## **Production deployment notes (Kubernetes)**
+## Production Deployment (Kubernetes)
 
-* **K8s primitives**  
-  * Deploy API as a Deployment \+ Service (ClusterIP) behind ingress (NGINX / Traefik).  
-  * Agent workers as scalable Deployments (HPA based on queue depth / CPU).  
-  * Use StatefulSets for Postgres / Vector DB or managed services.  
-  * Use PersistentVolumeClaims for object storage or use real S3.  
-  * Configure HorizontalPodAutoscaler for workers and orchestrator.  
-* **Security**  
-  * Use KMS/SecretsManager for secrets.  
-  * MTLS between services (service mesh like Istio or Linkerd recommended).  
-* **Observability**  
-  * Prometheus scraping endpoints, Grafana dashboards, and Loki/ELK for logs.  
-* **CI/CD**  
-  * Build containers in CI, push to registry, deploy via GitOps (ArgoCD) or CI pipeline (GitHub Actions \+ kubectl/helm).
+- **API**: Deploy as a `Deployment + Service` behind an ingress (NGINX / Traefik).
+- **Agent Workers**: Scalable `Deployments` with HPA based on queue depth or CPU.
+- **Databases**: Use `StatefulSets` for Postgres / Vector DB, or use managed services.
+- **Storage**: `PersistentVolumeClaims` for object storage, or connect to real S3.
+- **Security**: Store secrets in KMS/SecretsManager. Use mTLS between services (Istio or Linkerd).
+- **Observability**: Prometheus scraping + Grafana dashboards + Loki/ELK for logs.
+- **CI/CD**: Build in CI, push to registry, deploy via GitOps (ArgoCD) or GitHub Actions + Helm.
 
 ---
 
-## **Observability & SLOs**
+## Observability & SLOs
 
-* **Metrics**  
-  * Latency (per-agent): transcription latency, summarization latency, extraction time.  
-  * Throughput: processed meetings/minute, action items/hour.  
-  * Delivery success rate: % ACKs vs failed deliveries.  
-* **SLO examples**  
-  * Transcription latency: 95% \< 1s (streamed chunk).  
-  * Orchestrator delivery success: 99% within SLA.  
-* **Tracing**  
-  * Use distributed tracing (OpenTelemetry) to follow a message through agents and channels.  
-* **Audit**  
-  * Immutable audit logs stored in Postgres and optionally exported to cold storage for compliance.
+**Key Metrics**
+- Per-agent latency: transcription, summarization, extraction times
+- Throughput: meetings processed per minute, action items per hour
+- Delivery success rate: % of ACKs vs failed deliveries
 
----
+**SLO Targets**
+- Transcription latency: 95th percentile < 1s (streamed chunk)
+- Orchestrator delivery success: 99% within SLA
 
-## **Security, privacy & compliance**
-
-* **Data minimization**: store only required metadata and timestamps for routing. Remove or redact PII unless customer explicitly opts in for storage.  
-* **Anonymization**: when building aggregated benchmarks, strip tokens and apply k-anonymity before aggregation.  
-* **Encryption**: TLS in transit, AES-256 at rest for all stored audio/transcripts.  
-* **Access control**: RBAC for UI and API admin surfaces. Human-in-loop review functionality should require elevated privileges.  
-* **Compliance**: plan for SOC2 readiness and regional data residency. Provide options for on-prem or VPC-isolated deployments for enterprise customers.
+**Tracing & Audit**
+- Use OpenTelemetry for distributed tracing across agents
+- Immutable audit logs stored in Postgres, exportable to cold storage for compliance
 
 ---
 
-## **Testing strategy**
+## Security & Compliance
 
-* **Unit tests**: for parsing, transformation logic, and small components.  
-* **Integration tests**: end-to-end tests that run agents locally (mock models) and verify event flows and database state.  
-* **Contract tests**: ensure agents adhere to the agreed JSON contract for actions.  
-* **Load tests**: simulate concurrent meetings and validate throughput and autoscaling behavior.  
-* **Security tests**: static code analysis, dependency vulnerability scans, and pen tests for critical endpoints.
-
-Tips:
-
-* Use local model stubs/mocks so CI does not call real LLM APIs during unit tests.  
-* Keep a small dataset of canned meeting transcripts for deterministic test runs.
+- **Data minimization**: Store only what's needed. Redact or remove PII unless the user opts in.
+- **Anonymization**: Strip tokens and apply k-anonymity before building any aggregated benchmarks.
+- **Encryption**: TLS in transit, AES-256 at rest for all audio and transcripts.
+- **Access control**: RBAC for the admin UI and API. Human-in-the-loop review requires elevated privileges.
+- **Compliance**: Designed with SOC2 readiness in mind. Supports on-prem or VPC-isolated deployments for enterprise use.
 
 ---
 
-## **Contributing**
+## Testing Strategy
 
-We welcome contributions — please follow the project conventions.
+| Test Type | What it covers |
+|---|---|
+| **Unit tests** | Parsing, transformation logic, and small isolated components |
+| **Integration tests** | End-to-end agent flows with mock models, checking event flows and DB state |
+| **Contract tests** | Ensures agents produce correct JSON action item schema |
+| **Load tests** | Simulates concurrent meetings to validate throughput and autoscaling |
+| **Security tests** | Static analysis, dependency scans, and pen tests for critical endpoints |
 
-1. Fork the repo and open a feature branch: `feature/<ticket>-short-desc`.  
-2. Run tests locally and add unit/integration tests for new features.  
-3. Open a Pull Request with a clear description and link to issues.  
-4. Ensure CI passes (lint, unit, integration).  
-5. For larger changes, open an RFC issue to discuss architecture impact.
+**Tips:**
+- Use local model stubs/mocks in CI — don't call real LLM APIs during unit tests.
+- Keep a small set of canned meeting transcripts for deterministic, repeatable test runs.
+
+---
+
+## Contributing
+
+Contributions are welcome! Here's how to get started:
+
+1. Fork the repo and create a feature branch: `feature/<ticket>-short-desc`
+2. Run tests locally and add unit/integration tests for your changes
+3. Open a Pull Request with a clear description and link to any related issues
+4. Make sure CI passes (lint, unit, integration)
+5. For bigger changes, open an RFC issue first to discuss the architecture impact
 
 **Code style**
-
-* Python: Black formatting, type hints, and docstrings.  
-* JavaScript/TypeScript (if used): Prettier \+ ESLint.
+- Python: Black formatting, type hints, and docstrings
+- JavaScript/TypeScript (if used): Prettier + ESLint
 
 ---
 
-## **Example dev snippets**
+## Example Snippets
 
-**Example agent worker (Python pseudo)**
+**Agent worker (Python pseudo-code)**
 
-\# worker.py  
-import os  
-import json  
-from queue\_client import QueueClient  
+```python
+# worker.py
+import os
+from queue_client import QueueClient
 from models import TranscriptionModel, SummarizationModel, ActionExtractor
 
-q \= QueueClient(os.getenv("RABBIT\_URL"))
+q = QueueClient(os.getenv("RABBIT_URL"))
+transcriber = TranscriptionModel(api_key=os.getenv("MODEL_KEY"))
+summarizer = SummarizationModel(...)
+extractor = ActionExtractor(...)
 
-transcriber \= TranscriptionModel(api\_key=os.getenv("MODEL\_KEY"))  
-summarizer \= SummarizationModel(...)  
-extractor \= ActionExtractor(...)
+def handle_meeting(meeting_id, audio_url):
+    transcript = transcriber.transcribe(audio_url)
+    summary = summarizer.summarize(transcript)
+    actions = extractor.extract(transcript, summary)
+    q.publish("actions.created", {"meeting_id": meeting_id, "actions": actions})
 
-def handle\_meeting(meeting\_id, audio\_url):  
-    transcript \= transcriber.transcribe(audio\_url)  
-    summary \= summarizer.summarize(transcript)  
-    actions \= extractor.extract(transcript, summary)  
-    q.publish("actions.created", {"meeting\_id": meeting\_id, "actions": actions})
+if __name__ == "__main__":
+    q.consume("meeting.created", handle_meeting)
+```
 
-if \_\_name\_\_ \== "\_\_main\_\_":  
-    q.consume("meeting.created", handle\_meeting)
+**Orchestration rule (JSON)**
 
-**Sample orchestration rule (JSON)**
-
-{  
-  "rule\_id": "route\_high\_priority",  
-  "condition": "priority \== 'high'",  
-  "actions": \[  
-    { "type": "assign", "target": "team\_lead" },  
-    { "type": "notify", "channel": "sms", "delay": 0 }  
-  \],  
-  "retry": { "attempts": 3, "delay\_seconds": 300 }  
+```json
+{
+  "rule_id": "route_high_priority",
+  "condition": "priority == 'high'",
+  "actions": [
+    { "type": "assign", "target": "team_lead" },
+    { "type": "notify", "channel": "sms", "delay": 0 }
+  ],
+  "retry": { "attempts": 3, "delay_seconds": 300 }
 }
+```
 
 ---
 
-## **Troubleshooting & runbook (short)**
+## Troubleshooting
 
-* **Worker backlog grows** → Inspect broker, scale workers, check downstream DB latency.  
-* **Action delivery failures** → Check orchestration logs (retry policy), inspect channel credentials, consult audit trail for error codes.  
-* **Model timeouts** → Use model stubs in quarantine; fallback to degraded mode (store for manual review).
-
----
-
-## **License**
-
-This repository is available under the **MIT License** — see `LICENSE` for full text.
+| Problem | What to check |
+|---|---|
+| Worker backlog keeps growing | Inspect the broker, scale up workers, check downstream DB latency |
+| Action delivery failures | Review orchestration logs and retry policy, check channel credentials and audit trail |
+| Model timeouts | Use model stubs; fall back to degraded mode (store for manual review) |
 
 ---
 
-## **Acknowledgements & references**
+## License
 
-* Architecture and models inspired by modern multi-agent research and practical production patterns.  
-* Foundation and orchestration concepts build on a modular design intended to be vendor-agnostic — adapt the model layer to whichever LLM provider or self-hosted checkpoints you use.
+This repository is released under the **MIT License** — see `LICENSE` for the full text.
+
+---
+
+## Acknowledgements
+
+- Architecture and model assignments are inspired by modern multi-agent research and real-world production patterns.
+- The design is intentionally vendor-agnostic — swap the model layer for whichever LLM provider or self-hosted checkpoint fits your setup.
